@@ -4,19 +4,19 @@ import { songType } from "../types/Song.type";
 import { PayloadAction } from "@reduxjs/toolkit";
 function* fetchSongSaga() {
   try {
-    const res = yield call(() => fetch("http://localhost:3001/song"));
+    const res: unknown = yield call(() =>
+      fetch("https://songappapi.onrender.com/song")
+    );
     const data = yield res.json();
-    // console.log(data);
     yield put(songActions.addSongs(data));
-    yield console.log("song saga fired");
   } catch (error) {
     console.log(error);
   }
 }
 function* storeNewSongSaga(action: PayloadAction<songType>) {
   try {
-    const res = yield call(() =>
-      fetch("http://localhost:3001/song", {
+    const res: unknown = yield call(() =>
+      fetch("https://songappapi.onrender.com/song", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,23 +26,18 @@ function* storeNewSongSaga(action: PayloadAction<songType>) {
     );
     if (res.ok) {
       const data = yield res.json();
-      //console.log(data);
-
       yield put(songActions.addNewSong(data));
     } else {
       throw new Error("Failed to add todo");
     }
-
-    console.log(action.payload);
-    yield console.log("add new songsong saga fired");
   } catch (error) {
     console.log(error);
   }
 }
 function* updateSong(action: PayloadAction<songType>) {
   try {
-    const res = yield call(() =>
-      fetch("http://localhost:3001/song", {
+    const res: unknown = yield call(() =>
+      fetch("https://songappapi.onrender.com/song", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -52,8 +47,7 @@ function* updateSong(action: PayloadAction<songType>) {
     );
     if (res.ok) {
       const data = yield res.json();
-      yield console.log(data.result);
-      yield console.log("update songsong saga fired");
+
       yield put(songActions.updateSong(data.result));
     } else {
       throw new Error("Failed to add todo");
@@ -67,7 +61,7 @@ function* updateSong(action: PayloadAction<songType>) {
 function* DeleteSong(action: PayloadAction<{ _id: string }>) {
   try {
     const res = yield call(() =>
-      fetch("http://localhost:3001/song", {
+      fetch("https://songappapi.onrender.com/song", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -76,10 +70,8 @@ function* DeleteSong(action: PayloadAction<{ _id: string }>) {
       })
     );
     if (res.ok) {
-      const data = yield res.json();
+      const data: unknown = yield res.json();
       yield console.log(data.result);
-      yield console.log("delete songsong saga fired");
-      yield console.log(action.payload);
       yield put(songActions.deleteSong(data.result));
     } else {
       throw new Error("Failed to add todo");
