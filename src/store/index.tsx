@@ -30,7 +30,6 @@ const songSlice = createSlice({
   reducers: {
     fetchStart(state) {
       state.isLoadingSongs = true;
-      console.log(state.isLoadingSongs);
     },
     addSongs(state: SongsState, action: PayloadAction<songType>) {
       state.songs = action.payload;
@@ -48,8 +47,6 @@ const songSlice = createSlice({
       state.isAddNewsongStart = true;
     },
     addNewSong(state, action: PayloadAction<songType>) {
-      console.log(action.payload);
-
       state.songs.unshift(action.payload);
       state.isAddNewsongStart = true;
     },
@@ -61,7 +58,7 @@ const songSlice = createSlice({
       const songIndex = state.songs.findIndex((value) => {
         return value._id === action.payload._id;
       });
-      console.log("updsate");
+
       state.songs[songIndex] = action.payload;
     },
     startDeleteSong(state, action: PayloadAction<{ _id: string }>) {

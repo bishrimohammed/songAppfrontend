@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Box, Flex, Text } from "rebass";
+import { useDispatch, useSelector } from "react-redux";
+import { Flex, Text } from "rebass";
 import "./App.css";
 import { songActions } from "./store";
 import styled from "@emotion/styled";
 import SongList from "./components/SongList";
-import { songType } from "./types/Song.type";
+import { SongsState, songType } from "./types/Song.type";
 import ModalForm from "./UI/ModalForm";
 import AlbumStatistics from "./components/AlbumStatistics";
 import Song_and_album_of_Artist from "./components/Song_and_Album_of_Artist";
 import SongInGenre from "./components/SongInGenre";
 import Total_song_artist_album_genre from "./components/Total_song_artist_album_genre";
+import Loader from "./UI/Loader";
 const Container = styled.div`
   box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.3);
   margin: 20px;
@@ -52,6 +53,7 @@ const App: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isNewSong, setIsNewSong] = useState(true);
   const [updateSongData, setUpdatesongData] = useState<songType | null>();
+  const isloading = useSelector((state: SongsState) => state.isLoadingSongs);
 
   useEffect(() => {
     dispatch(songActions.fetchStart());
@@ -83,46 +85,50 @@ const App: React.FC = () => {
           showFormHanlder={hideshowForm}
         />
       )}
+      {isloading && <Loader />}
+      {!isloading && (
+        <>
+          <Container>
+            {/* <Navbar /> */}
+            <SongList
+              setSongtobeUpdated={setSongtobeUpdated}
+              ishide={isModalOpen}
+              formShowHandler={formShowHandler}
+            />
+          </Container>
 
-      <Container>
-        {/* <Navbar /> */}
-        <SongList
-          setSongtobeUpdated={setSongtobeUpdated}
-          ishide={isModalOpen}
-          formShowHandler={formShowHandler}
-        />
-      </Container>
-
-      <Container>
-        <Text
-          textAlign="left      
+          <Container>
+            <Text
+              textAlign="left      
       "
-          fontSize={3}
-          paddingLeft={30}
-          paddingTop={20}
-          fontWeight={600}
-        >
-          All Statistics of Songs
-        </Text>
-        <StatisticsColumnContainer>
-          <ShadowBox>
-            <AlbumStatistics />
-          </ShadowBox>
+              fontSize={3}
+              paddingLeft={30}
+              paddingTop={20}
+              fontWeight={600}
+            >
+              All Statistics of Songs
+            </Text>
+            <StatisticsColumnContainer>
+              <ShadowBox>
+                <AlbumStatistics />
+              </ShadowBox>
 
-          <ShadowBox>
-            <Song_and_album_of_Artist />
-          </ShadowBox>
-        </StatisticsColumnContainer>
-        <StatisticsColumnContainer>
-          <ShadowBox>
-            <SongInGenre />
-          </ShadowBox>
+              <ShadowBox>
+                <Song_and_album_of_Artist />
+              </ShadowBox>
+            </StatisticsColumnContainer>
+            <StatisticsColumnContainer>
+              <ShadowBox>
+                <SongInGenre />
+              </ShadowBox>
 
-          <ShadowBox>
-            <Total_song_artist_album_genre />
-          </ShadowBox>
-        </StatisticsColumnContainer>
-      </Container>
+              <ShadowBox>
+                <Total_song_artist_album_genre />
+              </ShadowBox>
+            </StatisticsColumnContainer>
+          </Container>
+        </>
+      )}
     </>
   );
 };
