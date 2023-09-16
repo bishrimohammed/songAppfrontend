@@ -64,7 +64,7 @@ const songSlice = createSlice({
       console.log("updsate");
       state.songs[songIndex] = action.payload;
     },
-    startDeleteSong(state) {
+    startDeleteSong(state, action: PayloadAction<{ _id: string }>) {
       state.isDeletesongStrrt = true;
     },
     deleteSong(state, action: PayloadAction<songType>) {

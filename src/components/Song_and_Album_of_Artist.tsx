@@ -17,7 +17,7 @@ const SongAlbumStatsContainer = styled(Flex)`
 const TableContainer = styled(Box)`
   max-width: 95%;
   width: 100%;
-  margin-top: 16px;
+
   overflow-x: auto;
 `;
 
@@ -98,13 +98,14 @@ function Song_and_album_of_Artist() {
 
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = page * itemsPerPage;
-
-  let paginatedAlbums;
-  let totalPages = 0;
+  type paginateType = { _id: number; totalSongs: number; totalAlbums: number };
+  let paginatedAlbums = [];
+  let totalPages: number = 0;
   if (albums) {
     paginatedAlbums = _.slice(albums, startIndex, endIndex);
     totalPages = Math.ceil(albums.length / itemsPerPage);
   }
+
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
@@ -112,7 +113,7 @@ function Song_and_album_of_Artist() {
   return (
     <SongAlbumStatsContainer>
       <Text
-        textAlign="left      
+        textAlign="center      
       "
         fontWeight={600}
       >
@@ -128,18 +129,13 @@ function Song_and_album_of_Artist() {
             </tr>
           </thead>
           <tbody>
-            {paginatedAlbums.map(
-              (
-                album: { _id: number; totalSongs: number; totalAlbums: number },
-                index: number
-              ) => (
-                <tr key={index}>
-                  <TableCell>{album._id}</TableCell>
-                  <TableCell>{album.totalAlbums}</TableCell>
-                  <TableCell>{album.totalSongs}</TableCell>
-                </tr>
-              )
-            )}
+            {paginatedAlbums.map((album: paginateType, index: number) => (
+              <tr key={index}>
+                <TableCell>{album._id}</TableCell>
+                <TableCell>{album.totalAlbums}</TableCell>
+                <TableCell>{album.totalSongs}</TableCell>
+              </tr>
+            ))}
           </tbody>
         </AlbumTable>
       </TableContainer>

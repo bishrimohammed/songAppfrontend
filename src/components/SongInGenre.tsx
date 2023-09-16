@@ -3,6 +3,7 @@ import { Flex, Box, Text } from "rebass";
 import styled from "@emotion/styled";
 import _ from "lodash";
 import { useSelector } from "react-redux";
+import { SongsState } from "../types/Song.type";
 
 // Styled component for the album statistics container
 const AlbumStatsContainer = styled(Flex)`
@@ -86,7 +87,7 @@ const FilterContiner = styled.div`
 `;
 function SongInGenre() {
   const albums = useSelector(
-    (state) => state.songStatistics.Number_of_Song_genreStatistics
+    (state: SongsState) => state.songStatistics.Number_of_Song_genreStatistics
   );
   //const albums = albumsData.Number_of_Song_genreStatistics;
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -94,13 +95,17 @@ function SongInGenre() {
   //const itemsPerPage = 3;
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = page * itemsPerPage;
-  var paginatedAlbums = [];
-  var totalPages;
+  type paginateSongGenre = {
+    _id: string;
+    count: number;
+  };
+  let paginatedAlbums = [];
+  let totalPages: number = 0;
   if (albums) {
     paginatedAlbums = _.slice(albums, startIndex, endIndex);
     totalPages = Math.ceil(albums.length / itemsPerPage);
   }
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
@@ -122,7 +127,7 @@ function SongInGenre() {
             </tr>
           </thead>
           <tbody>
-            {paginatedAlbums.map((album, index) => (
+            {paginatedAlbums.map((album: paginateSongGenre, index: number) => (
               <tr key={index}>
                 <TableCell>{album._id}</TableCell>
                 <TableCell>{album.count}</TableCell>
@@ -138,15 +143,12 @@ function SongInGenre() {
           </Text>
           <Flex>
             <Button
-              variant="primary"
-              mr={3}
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
             >
               Previous
             </Button>
             <Button
-              variant="outline"
               onClick={() => handlePageChange(page + 1)}
               disabled={page === totalPages}
             >
@@ -158,8 +160,8 @@ function SongInGenre() {
           <Text marginBottom={2}>{itemsPerPage} per Page</Text>
           <Select
             value={itemsPerPage}
-            onChange={(e) => {
-              setItemsPerPage(e.target.value);
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              setItemsPerPage(Number(e.target.value));
             }}
           >
             <Option value="5">5</Option>

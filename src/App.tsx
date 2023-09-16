@@ -14,12 +14,17 @@ import Total_song_artist_album_genre from "./components/Total_song_artist_album_
 const Container = styled.div`
   box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.3);
   margin: 20px;
+  position: relative;
+  overflow-x: hidden;
+  @media screen and (max-width: 500px) {
+    margin: 5px;
+  }
 `;
 const StatisticsColumnContainer = styled(Flex)`
   flex-wrap: wrap;
   margin-top: 20px;
   width: 100%;
-
+  position: relative;
   justify-content: center;
 
   & > div {
@@ -109,16 +114,13 @@ const App: React.FC = () => {
           </ShadowBox>
         </StatisticsColumnContainer>
         <StatisticsColumnContainer>
-          <Box>
-            <ShadowBox>
-              <SongInGenre />
-            </ShadowBox>
-          </Box>
-          <Box>
-            <ShadowBox>
-              <Total_song_artist_album_genre />
-            </ShadowBox>
-          </Box>
+          <ShadowBox>
+            <SongInGenre />
+          </ShadowBox>
+
+          <ShadowBox>
+            <Total_song_artist_album_genre />
+          </ShadowBox>
         </StatisticsColumnContainer>
       </Container>
     </>

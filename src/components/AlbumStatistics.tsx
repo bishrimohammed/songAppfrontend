@@ -121,7 +121,7 @@ function AlbumStatistics() {
             </thead>
             <tbody>
               {paginatedAlbums.map(
-                (album: { _id: number; totalSongs: number }, index) => (
+                (album: { _id: number; totalSongs: number }, index: number) => (
                   <tr key={index}>
                     <TableCell>{album._id}</TableCell>
                     <TableCell>{album.totalSongs}</TableCell>

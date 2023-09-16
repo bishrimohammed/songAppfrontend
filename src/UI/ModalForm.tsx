@@ -118,17 +118,17 @@ function ModalForm(props: propsType) {
   const uniqueGenre = [...new Set(songs.map((obj) => obj.genre))];
   useEffect(() => {
     if (props.type === "update") {
-      titlevalue.current!.value = props.songData.title;
-      nameValue.current!.value = props.songData.artist;
-      albumValue.current!.value = props.songData.album;
-      GenerValue.current!.value = props.songData.genre;
+      titlevalue.current!.value = props.songData!.title;
+      nameValue.current!.value = props.songData!.artist;
+      albumValue.current!.value = props.songData!.album;
+      GenerValue.current!.value = props.songData!.genre;
     }
   }, [props.type]);
 
   const submitHandler = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
-      titlevalue.current?.value.trim() !== "" &&
+      titlevalue.current!.value.trim() !== "" &&
       nameValue.current?.value.trim() !== "" &&
       albumValue.current?.value.trim() !== "" &&
       GenerValue.current?.value.trim() !== ""
@@ -136,31 +136,31 @@ function ModalForm(props: propsType) {
       if (props.type === "save") {
         const newSongData = {
           _id: "",
-          title: titlevalue.current.value,
-          artist: nameValue.current.value,
-          album: albumValue.current.value,
-          genre: GenerValue.current.value,
+          title: titlevalue.current!.value,
+          artist: nameValue.current!.value,
+          album: albumValue.current!.value,
+          genre: GenerValue.current!.value,
         };
         //console.log(newSongData);
         dispatch(songActions.addNewStart(newSongData));
-        titlevalue.current.value = "";
-        nameValue.current.value = "";
-        albumValue.current.value = "";
-        GenerValue.current.value = "";
+        titlevalue.current!.value = "";
+        nameValue.current!.value = "";
+        albumValue.current!.value = "";
+        GenerValue.current!.value = "";
         props.showFormHanlder(false);
       } else {
         const updatedSongData = {
-          _id: props.songData._id,
+          _id: props.songData!._id,
           artist: nameValue.current!.value,
           title: titlevalue.current!.value,
           album: albumValue.current!.value,
           genre: GenerValue.current!.value,
         };
         dispatch(songActions.updateStartStart(updatedSongData));
-        titlevalue.current.value = "";
-        nameValue.current.value = "";
-        albumValue.current.value = "";
-        GenerValue.current.value = "";
+        titlevalue.current!.value = "";
+        nameValue.current!.value = "";
+        albumValue.current!.value = "";
+        GenerValue.current!.value = "";
 
         props.showFormHanlder(false);
       }

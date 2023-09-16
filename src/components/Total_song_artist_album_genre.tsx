@@ -8,14 +8,15 @@ import { SongsState } from "../types/Song.type";
 const AlbumStatsContainer = styled(Flex)`
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  min-width: 100%;
+  position: relative;
 `;
 
 // Styled component for the table container
 const TableContainer = styled(Box)`
   max-width: 95%;
   width: 100%;
-  margin-top: 16px;
+
   overflow-x: auto;
 `;
 
