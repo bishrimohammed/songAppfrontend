@@ -325,6 +325,11 @@ const SongList = (props: porpsTypes) => {
                               dispatch(
                                 songActions.startDeleteSong({ _id: song._id })
                               );
+                              setTimeout(() => {
+                                dispatch(
+                                  songActions.fetchSongStatisticsStart()
+                                );
+                              }, 3000);
                             }
                           }}
                         >

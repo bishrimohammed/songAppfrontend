@@ -12,6 +12,7 @@ import Song_and_album_of_Artist from "./components/Song_and_Album_of_Artist";
 import SongInGenre from "./components/SongInGenre";
 import Total_song_artist_album_genre from "./components/Total_song_artist_album_genre";
 import Loader from "./UI/Loader";
+import { ToastContainer, toast } from "react-toastify";
 const Container = styled.div`
   box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.3);
   margin: 20px;
@@ -86,10 +87,22 @@ const App: React.FC = () => {
         />
       )}
       {isloading && <Loader />}
+
       {!isloading && (
         <>
           <Container>
-            {/* <Navbar /> */}
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
             <SongList
               setSongtobeUpdated={setSongtobeUpdated}
               ishide={isModalOpen}
