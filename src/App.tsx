@@ -86,8 +86,8 @@ const App: React.FC = () => {
           showFormHanlder={hideshowForm}
         />
       )}
-
-      <Container>
+      {isloading && <Loader/>}
+      {!isloading && (<> <Container>
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -136,7 +136,8 @@ const App: React.FC = () => {
             <Total_song_artist_album_genre />
           </ShadowBox>
         </StatisticsColumnContainer>
-      </Container>
+      </Container></>)}
+     
     </>
   );
 };
