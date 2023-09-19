@@ -3,7 +3,7 @@ import { songActions } from "../store/index";
 function* fetchSongStatisticsSaga() {
   try {
     const res: unknown = yield call(() =>
-      fetch("http://localhost:4000/song/statistics")
+      fetch("https://songappapi.onrender.com/song/statistics")
     );
     const data = yield res.json();
     yield put(songActions.setSongStatistics(data));

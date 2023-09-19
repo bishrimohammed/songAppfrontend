@@ -3,11 +3,12 @@ import { songActions } from "../store/index";
 import { songType } from "../types/Song.type";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { StatisticsSaga } from "./Statistics-Saga";
 
 function* fetchSongSaga() {
   try {
-    const res: unknown = yield call(() => fetch("http://localhost:4000/song"));
+    const res: unknown = yield call(() =>
+      fetch("https://songappapi.onrender.com/song")
+    );
     const data = yield res.json();
     yield put(songActions.addSongs(data));
   } catch (error) {
@@ -17,7 +18,7 @@ function* fetchSongSaga() {
 function* storeNewSongSaga(action: PayloadAction<songType>) {
   try {
     const res: unknown = yield call(() =>
-      fetch("http://localhost:4000/song", {
+      fetch("https://songappapi.onrender.com/song", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +49,7 @@ function* storeNewSongSaga(action: PayloadAction<songType>) {
 function* updateSong(action: PayloadAction<songType>) {
   try {
     const res: unknown = yield call(() =>
-      fetch("http://localhost:4000/song", {
+      fetch("https://songappapi.onrender.com/song", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +83,7 @@ function* updateSong(action: PayloadAction<songType>) {
 function* DeleteSong(action: PayloadAction<{ _id: string }>) {
   try {
     const res: unknown = yield call(() =>
-      fetch("http://localhost:4000/song", {
+      fetch("https://songappapi.onrender.com/song", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -92,10 +93,9 @@ function* DeleteSong(action: PayloadAction<{ _id: string }>) {
     );
     if (res.ok) {
       const data: unknown = yield res.json();
-      console.log(data.succes);
 
       yield put(songActions.deleteSong(data.result));
-      //return data.succes;
+
       toast.error("Song is deleted successfully", {
         position: "top-right",
         autoClose: 2000,
