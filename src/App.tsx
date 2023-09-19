@@ -86,62 +86,57 @@ const App: React.FC = () => {
           showFormHanlder={hideshowForm}
         />
       )}
-      {isloading && <Loader />}
 
-      {!isloading && (
-        <>
-          <Container>
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="colored"
-            />
-            <SongList
-              setSongtobeUpdated={setSongtobeUpdated}
-              ishide={isModalOpen}
-              formShowHandler={formShowHandler}
-            />
-          </Container>
+      <Container>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
+        <SongList
+          setSongtobeUpdated={setSongtobeUpdated}
+          ishide={isModalOpen}
+          formShowHandler={formShowHandler}
+        />
+      </Container>
 
-          <Container>
-            <Text
-              textAlign="left      
+      <Container>
+        <Text
+          textAlign="left      
       "
-              fontSize={3}
-              paddingLeft={30}
-              paddingTop={20}
-              fontWeight={600}
-            >
-              All Statistics of Songs
-            </Text>
-            <StatisticsColumnContainer>
-              <ShadowBox>
-                <AlbumStatistics />
-              </ShadowBox>
+          fontSize={3}
+          paddingLeft={30}
+          paddingTop={20}
+          fontWeight={600}
+        >
+          All Statistics of Songs
+        </Text>
+        <StatisticsColumnContainer>
+          <ShadowBox>
+            <AlbumStatistics />
+          </ShadowBox>
 
-              <ShadowBox>
-                <Song_and_album_of_Artist />
-              </ShadowBox>
-            </StatisticsColumnContainer>
-            <StatisticsColumnContainer>
-              <ShadowBox>
-                <SongInGenre />
-              </ShadowBox>
+          <ShadowBox>
+            <Song_and_album_of_Artist />
+          </ShadowBox>
+        </StatisticsColumnContainer>
+        <StatisticsColumnContainer>
+          <ShadowBox>
+            <SongInGenre />
+          </ShadowBox>
 
-              <ShadowBox>
-                <Total_song_artist_album_genre />
-              </ShadowBox>
-            </StatisticsColumnContainer>
-          </Container>
-        </>
-      )}
+          <ShadowBox>
+            <Total_song_artist_album_genre />
+          </ShadowBox>
+        </StatisticsColumnContainer>
+      </Container>
     </>
   );
 };
